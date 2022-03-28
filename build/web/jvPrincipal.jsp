@@ -30,7 +30,6 @@
                                 </td>
                                 <td align="right" width="20%">
                                     <font class="fontEtiqueta">
-
                                             <br>				
                                             <b> - </b>
                                             <br>

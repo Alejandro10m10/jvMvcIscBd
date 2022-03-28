@@ -9,10 +9,11 @@
 package modelo;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,41 +37,36 @@ public class clsUsuario {
     public clsUsuario(String usuario, String contrasena){
         this.usuario = usuario;
         this.contrasena = contrasena;
+        
+        connectDatabase();
     }
     
     // ------------------------
     // Sección de manejo de conexión y manipulació de datos
     // ------------------------
-    Connection cnn;
+    Connection cn;
     ResultSet rs;
     String consultaSQL = "";
     Statement st;
     
-    // Sección de métodos para conexión y ejecución de comandos
-    public Connection conexion(){
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            cnn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/control_acceso","root","19992407");
-            System.out.println("Conexion a BD exitosa!");
+    private void connectDatabase(){
+        try { 
+            this.cn = Conexion.conectar();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(clsUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch(ClassNotFoundException | SQLException ex){
-            System.out.println("Error: " + ex.getMessage());
-        }
-        return cnn;
     }
 
     // CREAR EL METODO PARA MONITOREO DEL STATEMENT
     Statement createStatement(){
-        throw new UnsupportedOperationException("No se soporte una conexión BD");
+        throw new UnsupportedOperationException("No se soporta una conexión BD");
     }
     
     // Creación de métodos para manipulación de procedimientos
-    public ResultSet validarAcceso() throws SQLException{
+    public ResultSet validarAcceso() throws SQLException, ClassNotFoundException{
         consultaSQL = "call control_acceso.sp_ValidarAcceso('" + this.usuario + "', '" + this.contrasena + "');";
-        
-        st = (Statement)cnn.createStatement();
+        st = (Statement)this.cn.createStatement();
         rs = st.executeQuery(consultaSQL);
-        
         return rs;
     }
 
