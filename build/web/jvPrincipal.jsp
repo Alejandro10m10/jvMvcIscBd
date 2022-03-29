@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="src/css/principal.css"/>
+        <link rel="stylesheet" href="./assets/css/principal.css"/>
     </head>
     <body style="background:#DAF6FE">
         <form id="frmPrincipal" method="POST">  
@@ -21,7 +21,7 @@
                         <table width="100%" border="0">
                             <tr>
                                 <td align="left" width="20%">
-                                    <img src="src/img/computerBusiness.jpg" width="130px" height="80px"> 
+                                    <img src="./assets/img/computerBusiness.jpg" width="130px" height="80px"> 
                                 </td>
                                 <td align="middle" width="60%">
                                     <font class="fontTitulo" >
@@ -65,11 +65,11 @@
                                 derechos reservados
                         </font>
                         &nbsp;
-                        <a href="http://www.facebook.com" target="_blank"><img src="src/img/facebook.jpg" class="imgRedes"></a> 				
+                        <a href="http://www.facebook.com" target="_blank"><img src="./assets/img/facebook.jpg" class="imgRedes"></a> 				
                         &nbsp;
-                        <a href="http://www.instagram.com" target="_blank"><img src="src/img/instagram.png" class="imgRedes"></a> 				
+                        <a href="http://www.instagram.com" target="_blank"><img src="./assets/img/instagram.png" class="imgRedes"></a> 				
                         &nbsp;
-                        <a href="http://www.twitter.com" target="_blank"><img src="src/img/twitter.png" class="imgRedes"></a> 				
+                        <a href="http://www.twitter.com" target="_blank"><img src="./assets/img/twitter.png" class="imgRedes"></a> 				
                     </td>
                 </tr>	
             </table>
