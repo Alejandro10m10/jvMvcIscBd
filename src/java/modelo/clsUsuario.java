@@ -36,9 +36,7 @@ public class clsUsuario {
     
     public clsUsuario(String usuario, String contrasena){
         this.usuario = usuario;
-        this.contrasena = contrasena;
-        
-        connectDatabase();
+        this.contrasena = contrasena;        
     }
     
     // ------------------------
@@ -49,10 +47,18 @@ public class clsUsuario {
     String consultaSQL = "";
     Statement st;
     
-    private void connectDatabase(){
+    public void connectDatabase(){
         try { 
             this.cn = Conexion.conectar();
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(clsUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void disconnectDatabase(){
+        try {
+            this.cn.close();
+        } catch (SQLException ex) {
             Logger.getLogger(clsUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

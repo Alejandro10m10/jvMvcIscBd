@@ -40,11 +40,12 @@ public class srvAcceso extends HttpServlet {
         //Validación de datos recibidos
         if(usuario.equals("") || usuario == null || contrasena.equals("") || contrasena == null) { sendErrorCode(request, response, 1); return; } //Datos vacios
         
-        // Datos de usuario correctos
+        // Datos de usuario correctos y Creación del objeto para conexión a BD
+        clsUsuario obj = new clsUsuario(usuario, contrasena);
         try {
-            //Creación del objeto para conexión a BD
-            clsUsuario obj = new clsUsuario(usuario, contrasena);
-            //Ejecución del método de conexión y ejecución del método de validar acceso
+            //Ejecución del método de conexión
+            obj.connectDatabase();
+            //Ejecución del método de validar acceso
             ResultSet rsSrv = obj.validarAcceso();
             //Validación del resultado de ejecuión
             int bandera = 0;
@@ -68,6 +69,8 @@ public class srvAcceso extends HttpServlet {
             Logger.getLogger(srvAcceso.class.getName() ).log(Level.SEVERE, null, e);
             sendErrorCode(request, response, 3); //Error de conectividad externo al usuario
         }
+        
+        obj.disconnectDatabase();
     }
     
     private void sendErrorCode(HttpServletRequest request, HttpServletResponse response, int errorKeyCode) throws ServletException, IOException{
