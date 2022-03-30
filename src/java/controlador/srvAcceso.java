@@ -68,9 +68,9 @@ public class srvAcceso extends HttpServlet {
         } catch (ClassNotFoundException | SQLException e) {
             Logger.getLogger(srvAcceso.class.getName() ).log(Level.SEVERE, null, e);
             sendErrorCode(request, response, 3); //Error de conectividad externo al usuario
-        }
-        
-        obj.disconnectDatabase();
+        } finally{
+            obj.disconnectDatabase();
+        }        
     }
     
     private void sendErrorCode(HttpServletRequest request, HttpServletResponse response, int errorKeyCode) throws ServletException, IOException{

@@ -5,12 +5,68 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="modelo.clsUsuario"%>
+
+<%
+  String mensaje = "";
+  
+  // ErrorCode ---------------------------------------------------------------------------------------
+  
+  String message = "";
+  int vistaError = Integer.parseInt((String)request.getSession().getAttribute("errorCode"));
+  
+  //Validación de recepción del atributo
+  if(request.getSession().getAttribute("errorCode") != null || request.getSession().getAttribute("errorCode") != "0") { //Validamos que el controlador mande datos
+      //Validación del código recibido
+        switch (vistaError){
+            case 1:
+                mensaje = "<script language='javascript'>alert('Campos del formulario vacios, Verifica!');</script>";
+                break;
+            case 2:
+                mensaje = "<script language='javascript'>alert('Nombre de usuario o contraseña incorrecto, Verifica!');</script>";
+                break;
+            case 3:
+                mensaje = "<script language='javascript'>alert('Ha sucedido un error inesperado, reintenta nuevamente.');</script>";
+                break;
+            default:
+                break;
+        }
+
+        mensaje += "<script language='javascript'>document.location.href='jvAcceso.jsp';</script>";
+      //Actualizar el valor del atributo errorCode
+      request.getSession().setAttribute("errorCode", "0");
+  }
+  
+
+  // -------------------------------------------------------------------------------------------------
+  
+  // srvUsuario ---------------------------------------------------------------------------------------
+  clsUsuario vistaUsuario;
+  String nombre = "", ruta = "", usuario = "", rol = "";
+  if(request.getSession().getAttribute("srvUsuario") != null ){
+      vistaUsuario = (clsUsuario)request.getSession().getAttribute("srvUsuario");
+      
+      nombre = vistaUsuario.getNombre();
+      ruta = vistaUsuario.getRuta();
+      usuario = vistaUsuario.getUsuario();
+      rol = vistaUsuario.getTipoUsuario();
+      
+      mensaje = "<script language='javascript'>alert('Bienvenido: " + nombre + ", " + usuario + ", [" + rol + "] ');</script>";
+      
+      //Actualizar el valor del atributo errorCode
+      request.getSession().setAttribute("srvUsuario", null);
+  }
+  // -------------------------------------------------------------------------------------------------
+    
+%>
+
+<%=mensaje%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="src/css/principal.css"/>
+        <link rel="stylesheet" href="./src/css/principal.css"/>
     </head>
     <body style="background:#DAF6FE">
         <form id="frmPrincipal" method="POST">  
@@ -30,11 +86,12 @@
                                 </td>
                                 <td align="right" width="20%">
                                     <font class="fontEtiqueta">
+                                            <img class="user-image" src="<%=ruta%>" alt="Foto de perfil del usuario" >
                                             <br>				
-                                            <b> - </b>
+                                            <b> <%=nombre%> - <%=usuario%> </b>
                                             <br>
-                                            (  )
-                                    </font>													
+                                            ( <%=rol%> )
+                                    </font>		
                                 </td>						
                             </tr>
                         </table>
