@@ -76,6 +76,14 @@ public class clsUsuario {
         return rs;
     }
     
+    // Creación del método para ver el Reporte de Usuarios (vwRptUsuario)
+    public ResultSet viewRptUsuario() throws SQLException{
+        consultaSQL = "SELECT * FROM vwRptUsuario";
+        st = (Statement)this.cn.createStatement();
+        rs = st.executeQuery(consultaSQL);
+        return rs;
+    }
+    
     // ------------------------
     // Setters and Getters
     // ------------------------
