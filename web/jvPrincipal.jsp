@@ -10,9 +10,7 @@
 <%
   String mensaje = "";
   
-  // ErrorCode ---------------------------------------------------------------------------------------
-  
-  String message = "";
+  // ErrorCode ---------------------------------------------------------------------------------------  
   int vistaError = Integer.parseInt((String)request.getSession().getAttribute("errorCode"));
   
   //Validación de recepción del atributo

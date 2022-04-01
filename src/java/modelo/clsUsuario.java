@@ -75,7 +75,7 @@ public class clsUsuario {
         rs = st.executeQuery(consultaSQL);
         return rs;
     }
-
+    
     // ------------------------
     // Setters and Getters
     // ------------------------
