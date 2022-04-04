@@ -30,7 +30,7 @@
                 break;
         }
 
-        mensaje += "<script language='javascript'>document.location.href='jvAcceso.jsp';</script>";
+      mensaje += "<script language='javascript'>document.location.href='jvAcceso.jsp';</script>";
       //Actualizar el valor del atributo errorCode
       request.getSession().setAttribute("errorCode", "0");
   }
@@ -98,7 +98,9 @@
                 <tr>
                     <td align="left" width="20%" bgcolor="#14BDE9">
                         <br><br>
-                        <a href="" target="_self" class="fontVinculo">Reporte de Usuarios</a>
+                        <a href="srvRptUsuario" target="_self" class="fontVinculo">Reporte de Usuarios (GET)</a>
+                        <br><br>
+                        <a href="javascript: rptUsuario();" target="_self" class="fontVinculo">Reporte de Usuarios (POST)</a>
                         <br><br>
                         <a href="" target="_self" class="fontVinculo">Gestion de Usuarios</a>
                         <br><br>
@@ -132,3 +134,12 @@
         </form>
     </body>
 </html>
+
+<script language="javascript">
+    
+    function rptUsuario(){
+        document.forms[0].action = "srvRptUsuario";
+        document.forms[0].submit();
+    }
+    
+</script> 

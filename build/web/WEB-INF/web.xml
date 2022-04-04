@@ -4,9 +4,17 @@
         <servlet-name>srvAcceso</servlet-name>
         <servlet-class>controlador.srvAcceso</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>srvRptUsuario</servlet-name>
+        <servlet-class>controlador.srvRptUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>srvAcceso</servlet-name>
         <url-pattern>/srvAcceso</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvRptUsuario</servlet-name>
+        <url-pattern>/srvRptUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
