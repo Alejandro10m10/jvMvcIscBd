@@ -137,6 +137,12 @@
 
 <script language="javascript">
     
+    /* 
+     * - POST se utiliza para enviar datos a un servidor para crear/actualizar un recurso. Hace un submit y en java podemos manipular los controles de la página 
+     * - GET se utiliza para solicitar datos de un recurso específico.
+     * 
+     * */
+    
     function rptUsuario(){
         document.forms[0].action = "srvRptUsuario";
         document.forms[0].submit();
