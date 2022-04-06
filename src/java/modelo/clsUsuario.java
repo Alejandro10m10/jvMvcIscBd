@@ -77,8 +77,8 @@ public class clsUsuario {
     }
     
     // Creación del método para ver el Reporte de Usuarios (vwRptUsuario)
-    public ResultSet viewRptUsuario() throws SQLException{
-        consultaSQL = "SELECT * FROM vwRptUsuario";
+    public ResultSet viewRptUsuario(String busqueda) throws SQLException{
+        consultaSQL = "SELECT * FROM vwRptUsuario WHERE vwrptusuario.Usuario LIKE '%" + busqueda + "%'" ;
         st = (Statement)this.cn.createStatement();
         rs = st.executeQuery(consultaSQL);
         return rs;

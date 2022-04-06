@@ -34,13 +34,19 @@ public class srvRptUsuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         try {
+            
+            String filtro = request.getParameter("txtFiltro");
+            
+            if(filtro == null) filtro = "";
+            
             // Creación del objeto del modelo clsUsuario
             clsUsuario obj = new clsUsuario();
             // Ejecutar el método vwRptUsuario
             obj.connectDatabase();
-            ResultSet rs = obj.viewRptUsuario();
+            ResultSet rs = obj.viewRptUsuario(filtro);
             //Envio del control de ejecución a JSP
             sendCorrectData(request, response, rs);
+            
         } catch (SQLException e) {
             Logger.getLogger(srvRptUsuario.class.getName() ).log(Level.SEVERE, null, e);
             sendErrorCode(request, response, 1);

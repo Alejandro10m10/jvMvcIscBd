@@ -98,9 +98,11 @@
                 <tr>
                     <td align="left" width="20%" bgcolor="#14BDE9">
                         <br><br>
-                        <a href="srvRptUsuario" target="_self" class="fontVinculo">Reporte de Usuarios (GET)</a>
+                        <a href="srvRptUsuario" target="_self" class="fontVinculo">Reporte de Usuarios</a>
+                        <!-- 
                         <br><br>
                         <a href="javascript: rptUsuario();" target="_self" class="fontVinculo">Reporte de Usuarios (POST)</a>
+                        -->
                         <br><br>
                         <a href="" target="_self" class="fontVinculo">Gestion de Usuarios</a>
                         <br><br>
