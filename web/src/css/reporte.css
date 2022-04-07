@@ -1,0 +1,65 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6/04/2022, 11:45:08 PM
+    Author     : aleja
+*/
+
+.reporte{
+    font-size: 14px;
+    margin-bottom: 30px;
+    border: 1px solid rgb(2, 2, 193);
+}
+
+.reporte tbody tr,
+.reporte tbody tr td:first-child{
+    text-align: center;
+    
+}
+
+.reporte tbody tr:nth-child(n+1){
+    color: rgb(1, 1, 128);
+    
+}
+
+.reporte tbody tr:first-child{
+    background-color: rgb(1, 1, 128);
+    color: white;
+}
+
+.reporte tbody tr td:first-child{
+    font-weight: bold;
+}
+
+.administrador, .supervisor, .operativo{
+    font-weight: bold;
+}
+
+.administrador{
+    background-color: rgb(0, 0, 255);
+    color: white;
+}
+
+.supervisor{
+    background-color: #f7f7f7;
+    color: rgb(2, 2, 193);
+}
+
+.operativo{
+    background-color: rgb(206 243 255);
+    color: rgb(2, 2, 193);
+}
+
+.reporte tbody tr:nth-child(even){
+    background-color:#fefff4; 
+}
+
+.title-report{
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: rgb(2, 2, 193);
+}

@@ -17,23 +17,35 @@
         ResultSet rsVistaUsuario = (ResultSet) request.getSession().getAttribute("rsRptUsuario");
         
         // Construcción de la tabla de datos (HTML)
-        mensaje += "<table style='display:grid; place-content:center;' border='1'>";
-        mensaje += "<tr>";
-        mensaje += "<td><b>Clave</b></td>";
-        mensaje += "<td><b>Nombre</b></td>";
-        mensaje += "<td><b>Usuario</b></td>";
-        mensaje += "<td><b>Foto</b></td>";
-        mensaje += "<td><b>Rol</b></td>";
+        mensaje += "<table class='reporte' style='display:grid; place-content:center;' border='1'>";
+        mensaje += "<tr style='height: 35px;'>";
+        mensaje += "<td style='width: 9%'><b>Clave</b></td>";
+        mensaje += "<td style='width: 550px'><b>Nombre</b></td>";
+        mensaje += "<td style='width: 17%'><b>Usuario</b></td>";
+        mensaje += "<td style='width: 13%'><b>Foto</b></td>";
+        mensaje += "<td style='width: 25%'><b>Cargo</b></td>";
         mensaje += "</tr>";
         
         //Lectura de todos los registros
         while(rsVistaUsuario.next()){
+            
+            String cargo = rsVistaUsuario.getString(5);
+            String clase = "";
+            
+            if(cargo.equals("1 - Administrador")){
+                clase = "administrador";
+            } else if(cargo.equals("2 - Supervisor")){
+                clase = "supervisor";
+            } else if(cargo.equals("3 - Operativo")){
+                clase = "operativo";
+            }
+            
             mensaje += "<tr>";
             mensaje += "<td>" + rsVistaUsuario.getString(1) + "</td>";
-            mensaje += "<td>" + rsVistaUsuario.getString(2) + "</td>";
-            mensaje += "<td>" + rsVistaUsuario.getString(3) + "</td>";
-            mensaje += "<td><img src='" + rsVistaUsuario.getString(4) + "' width='50px'></td>";
-            mensaje += "<td>" + rsVistaUsuario.getString(5) + "</td>";
+            mensaje += "<td style='text-align: start; padding-left: 10px;'>" + rsVistaUsuario.getString(2) + "</td>";
+            mensaje += "<td style='text-align: start; padding-left: 10px;'>" + rsVistaUsuario.getString(3) + "</td>";
+            mensaje += "<td><img src='" + rsVistaUsuario.getString(4) + "' width='38px'></td>";
+            mensaje += "<td style='text-align: start; padding-left: 10px;' class='" + clase + "'>" + rsVistaUsuario.getString(5) + "</td>";
             mensaje += "</tr>";
         }
         mensaje += "</table>";
@@ -70,6 +82,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="./src/css/principal.css"/>
+        <link rel="stylesheet" href="./src/css/reporte.css"/>
     </head>
     <body style="background:#DAF6FE">
         <form id="frmRptUsuario" method="POST" action="srvRptUsuario">  
@@ -123,10 +136,10 @@
                     </td>
 
                     <td width="98.9%" bgcolor="white" style="display:grid; place-content: center;">
-                            <div style="margin-top: 20px; display: grid; grid-template-columns: auto 1fr; gap: 10px;" >
-                                <p style="margin: 5px 10px 5px 0">Captura un filtro de busqueda:</p>
-                                <input type="text" id="txtFiltro" name="txtFiltro" placeholder="Captura un nombre de usuario">
-                                <input  style="display: grid; grid-column: 1/3" type="submit" id="btnAceptar" name="btnAceptar" value="Aplicar">
+                            <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(2, auto); grid-template-rows: repeat(2, auto); gap: 10px; place-content:center; place-items:center;" >
+                                <p class="title-report" style="margin: 5px 0 5px 0; display: grid; grid-column: 1/3">Reporte de usuarios</p>
+                                <input style="display: grid; grid-row: 2/3" type="text" id="txtFiltro" name="txtFiltro" placeholder="Captura un nombre...">
+                                <input  style="display: grid; grid-row: 2/3" type="submit" id="btnAceptar" name="btnAceptar" value="Buscar">
                             </div>
                             &nbsp;&nbsp;
                             <%=mensaje %>
