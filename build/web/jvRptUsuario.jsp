@@ -22,7 +22,7 @@
         mensaje += "<td style='width: 9%'><b>Clave</b></td>";
         mensaje += "<td style='width: 550px'><b>Nombre</b></td>";
         mensaje += "<td style='width: 17%'><b>Usuario</b></td>";
-        mensaje += "<td style='width: 13%'><b>Foto</b></td>";
+        mensaje += "<td style='width: 10%'><b>Foto</b></td>";
         mensaje += "<td style='width: 25%'><b>Cargo</b></td>";
         mensaje += "</tr>";
         
@@ -86,6 +86,19 @@
         <link rel="stylesheet" href="./src/css/reporte.css"/>
     </head>
     <body style="background:#DAF6FE">
+        
+        <div class="user-pictrue">
+            <div class="user-pictrue__content">
+                <svg id="btnCloseImage" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="2" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                <img class="user-pictrue__picture" src="./src/assets/img/fotos/1.jpg">
+            </div>
+            <div class="user-pictrue__background"></div>
+        </div>
+        
         <form id="frmRptUsuario" method="POST" action="srvRptUsuario">  
         <center>	
             <table border="0" width="80%" cellspacing="0" cellpadding="5" class="sombreado">
