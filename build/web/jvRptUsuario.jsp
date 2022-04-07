@@ -31,6 +31,7 @@
             
             String cargo = rsVistaUsuario.getString(5);
             String clase = "";
+            String userName = rsVistaUsuario.getString(2);
             
             if(cargo.equals("1 - Administrador")){
                 clase = "administrador";
@@ -42,9 +43,9 @@
             
             mensaje += "<tr>";
             mensaje += "<td>" + rsVistaUsuario.getString(1) + "</td>";
-            mensaje += "<td style='text-align: start; padding-left: 10px;'>" + rsVistaUsuario.getString(2) + "</td>";
+            mensaje += "<td style='text-align: start; padding-left: 10px;'>" + userName + "</td>";
             mensaje += "<td style='text-align: start; padding-left: 10px;'>" + rsVistaUsuario.getString(3) + "</td>";
-            mensaje += "<td><img src='" + rsVistaUsuario.getString(4) + "' width='38px'></td>";
+            mensaje += "<td><img class='userProfilePicture' src='" + rsVistaUsuario.getString(4) + "' title='Haz click aquí para ver la foto de " + userName + "...'></td>";
             mensaje += "<td style='text-align: start; padding-left: 10px;' class='" + clase + "'>" + rsVistaUsuario.getString(5) + "</td>";
             mensaje += "</tr>";
         }

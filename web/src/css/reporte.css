@@ -63,3 +63,8 @@ and open the template in the editor.
     font-weight: bold;
     color: rgb(2, 2, 193);
 }
+
+.userProfilePicture{
+    width: 38px;
+    cursor: pointer;
+}
