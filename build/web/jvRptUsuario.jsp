@@ -87,14 +87,17 @@
     </head>
     <body style="background:#DAF6FE">
         
-        <div class="user-pictrue">
+        <div class="user-pictrue no-display">
             <div class="user-pictrue__content">
-                <svg id="btnCloseImage" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="2" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg id="btnCloseImage" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="2" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
-                <img class="user-pictrue__picture" src="./src/assets/img/fotos/1.jpg">
+                <div class="picture">
+                    
+                </div>
+                <!-- <img class="user-pictrue__picture" src="" alt="Foto de perfil de usuario"> -->
             </div>
             <div class="user-pictrue__background"></div>
         </div>
@@ -175,5 +178,7 @@
             </table>
         </center>
         </form>
+                    
+        <script src="./src/js/reporte.js"></script>
     </body>
 </html>

@@ -119,3 +119,7 @@ and open the template in the editor.
     height: 35px;
     cursor: pointer;
 }
+
+.no-display{
+    display: none;
+}
