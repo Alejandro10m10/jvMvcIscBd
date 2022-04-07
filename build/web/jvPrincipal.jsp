@@ -11,39 +11,40 @@
   String mensaje = "";
   
   // ErrorCode ---------------------------------------------------------------------------------------  
-  int vistaError = Integer.parseInt((String)request.getSession().getAttribute("errorCode"));
+  String vistaError = (String)request.getSession().getAttribute("errorCode");
   
   //Validación de recepción del atributo
-  if(request.getSession().getAttribute("errorCode") != null || request.getSession().getAttribute("errorCode") != "0") { //Validamos que el controlador mande datos
-      //Validación del código recibido
-        switch (vistaError){
-            case 1:
-                mensaje = "<script language='javascript'>alert('Campos del formulario vacios, Verifica!');</script>";
-                break;
-            case 2:
-                mensaje = "<script language='javascript'>alert('Nombre de usuario o contraseña incorrecto, Verifica!');</script>";
-                break;
-            case 3:
-                mensaje = "<script language='javascript'>alert('Ha sucedido un error inesperado, reintenta nuevamente.');</script>";
-                break;
-            default:
-                break;
-        }
+  if(vistaError != null){ //Validamos que el controlador mande datos de error
+    if(vistaError != "0"){
+        int vistaErrorInt = Integer.parseInt(vistaError);
+        //Validación del código recibido
+          switch (vistaErrorInt){
+              case 1:
+                  mensaje = "<script language='javascript'>alert('Campos del formulario vacios, Verifica!');</script>";
+                  break;
+              case 2:
+                  mensaje = "<script language='javascript'>alert('Nombre de usuario o contraseña incorrecto, Verifica!');</script>";
+                  break;
+              case 3:
+                  mensaje = "<script language='javascript'>alert('Ha sucedido un error inesperado, reintenta nuevamente.');</script>";
+                  break;
+              default:
+                  break;
+          }
 
-      mensaje += "<script language='javascript'>document.location.href='jvAcceso.jsp';</script>";
-      //Actualizar el valor del atributo errorCode
-      request.getSession().setAttribute("errorCode", "0");
+        mensaje += "<script language='javascript'>document.location.href='jvAcceso.jsp';</script>";
+        //Actualizar el valor del atributo errorCode
+        request.getSession().setAttribute("errorCode", "0");
+    }
   }
-  
 
   // -------------------------------------------------------------------------------------------------
   
   // srvUsuario ---------------------------------------------------------------------------------------
-  clsUsuario vistaUsuario;
+  
+  clsUsuario vistaUsuario = (clsUsuario)request.getSession().getAttribute("srvUsuario");
   String nombre = "", ruta = "", usuario = "", rol = "";
-  if(request.getSession().getAttribute("srvUsuario") != null ){
-      vistaUsuario = (clsUsuario)request.getSession().getAttribute("srvUsuario");
-      
+  if(vistaUsuario != null){
       nombre = vistaUsuario.getNombre();
       ruta = vistaUsuario.getRuta();
       usuario = vistaUsuario.getUsuario();
@@ -53,9 +54,10 @@
       
       //Actualizar el valor del atributo errorCode
       request.getSession().setAttribute("srvUsuario", null);
-  }
+  } 
+  
   // -------------------------------------------------------------------------------------------------
-    
+
 %>
 
 <%=mensaje%>
