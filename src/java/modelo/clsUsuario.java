@@ -84,6 +84,15 @@ public class clsUsuario {
         return rs;
     }
     
+    // Creación del método para Insertar Usuarios
+    public ResultSet spInsUsuario(String nombre, String paterno, String materno, String usuario, String contrasena, String ruta, String tipo) throws SQLException{
+        consultaSQL = "CALL spInsUsuario('" + nombre + "', '" + paterno + "', '" + materno + "', '" 
+                                            + usuario + "', '" + contrasena + "', '" + ruta + "', '" + tipo + "')" ;
+        st = (Statement)this.cn.createStatement();
+        rs = st.executeQuery(consultaSQL);
+        return rs;
+    }
+    
     // ------------------------
     // Setters and Getters
     // ------------------------

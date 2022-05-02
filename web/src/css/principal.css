@@ -80,6 +80,7 @@ body{
   text-decoration:none; /* SE QUITÓ CUALQUIER ESTILO DEFAULT*/
   border:none;
   border-radius:4px; 
+  cursor: pointer;
 }
 .textDecoracion{      
   font-family: sans-serif;
