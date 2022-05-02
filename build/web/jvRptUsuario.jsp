@@ -33,11 +33,11 @@
             String clase = "";
             String userName = rsVistaUsuario.getString(2);
             
-            if(cargo.equals("1 - Administrador")){
+            if(cargo.equals("1 - ADMINISTRADOR")){
                 clase = "administrador";
-            } else if(cargo.equals("2 - Supervisor")){
+            } else if(cargo.equals("2 - SUPERVISOR")){
                 clase = "supervisor";
-            } else if(cargo.equals("3 - Operativo")){
+            } else if(cargo.equals("3 - OPERATIVO")){
                 clase = "operativo";
             }
             

@@ -50,9 +50,9 @@ SELECT * FROM control_acceso.tipo_usuario;
 -- (3) INSERTAR UN USUARIO POR CADA TIPO DE USUARIO
 INSERT INTO control_acceso.usuario (USU_CVE_USUARIO, USU_NOMBRE, USU_APELLIDO_PATERNO, USU_APELLIDO_MATERNO, USU_USUARIO, USU_CONTRASENA, 
 									USU_RUTA, TIP_CVE_TIPOUSUARIO)
-	VALUES (NULL, 'Jonathan Alejandro', 'Sánchez', 'Alcántara', 'admin', '12345', 'imagenes/foto/1.jpg', 1),
-		   (NULL, 'Yessica', 'Vicencio', 'Delgado', 'yessi', '12345', 'imagenes/foto/2.jpg', 2),
-           (NULL, 'Axel Santiago', 'Ángeles', 'Sánchez', 'axel', '12345', 'imagenes/foto/3.jpg', 3);
+	VALUES (NULL, 'Jonathan Alejandro', 'Sánchez', 'Alcántara', 'admin', '12345', './src/assets/img/fotos/1.jpg', 1),
+		   (NULL, 'Yessica', 'Vicencio', 'Delgado', 'yessi', '12345', './src/assets/img/fotos/2.jpg', 2),
+           (NULL, 'Axel Santiago', 'Ángeles', 'Sánchez', 'axel', '12345', './src/assets/img/fotos/3.jpg', 3);
            
 SELECT * FROM control_acceso.usuario;
 
@@ -124,14 +124,14 @@ SELECT * FROM vwRptUsuario;
 -- Actividad: Insersión de 10 usuarios
 INSERT INTO control_acceso.usuario (USU_CVE_USUARIO, USU_NOMBRE, USU_APELLIDO_PATERNO, USU_APELLIDO_MATERNO, USU_USUARIO, USU_CONTRASENA, 
 									USU_RUTA, TIP_CVE_TIPOUSUARIO)
-	VALUES (NULL, 'Natalia', 'Alvarez', 'Castillo', 'natalia', '12345', 'imagenes/foto/3.jpg', 2),
-		   (NULL, 'Anginnell', 'Tapia', 'Delgado', 'angi', '12345', 'imagenes/foto/1.jpg', 1),
-           (NULL, 'Ricardo', 'Vega', 'Zambrano', 'ricardo', '12345', 'imagenes/foto/2.jpg', 3),
-           (NULL, 'Selene', 'Garces', 'Espada', 'selene', '12345', 'imagenes/foto/7.jpg', 1),
-           (NULL, 'Paola Adrea', 'Correa', 'Rojas', 'paola', '12345', 'imagenes/foto/12.jpg', 2),
-           (NULL, 'Sebastian', 'Uribe', 'Solano', 'sebas', '12345', 'imagenes/foto/13.jpg', 2),
-           (NULL, 'Rafael', 'Moreno', 'Espinoza', 'rafa', '12345', 'imagenes/foto/6.jpg', 3),
-           (NULL, 'Maria Jóse', 'García', 'Mora', 'maria', '12345', 'imagenes/foto/11.jpg', 3),
-           (NULL, 'Laura', 'Zuñiga', 'Ramírez', 'laura', '12345', 'imagenes/foto/9.jpg', 2),
-           (NULL, 'Juliana', 'Gonzales', 'Suarez', 'ricardo', '12345', 'imagenes/foto/14.jpg', 3);
+	VALUES (NULL, 'Natalia', 'Alvarez', 'Castillo', 'natalia', '12345', './src/assets/img/fotos/3.jpg', 2),
+		   (NULL, 'Anginnell', 'Tapia', 'Delgado', 'angi', '12345', './src/assets/img/fotos/1.jpg', 1),
+           (NULL, 'Ricardo', 'Vega', 'Zambrano', 'ricardo', '12345', './src/assets/img/fotos/2.jpg', 3),
+           (NULL, 'Selene', 'Garces', 'Espada', 'selene', '12345', './src/assets/img/fotos/7.jpg', 1),
+           (NULL, 'Paola Adrea', 'Correa', 'Rojas', 'paola', '12345', './src/assets/img/fotos/12.jpg', 2),
+           (NULL, 'Sebastian', 'Uribe', 'Solano', 'sebas', '12345', './src/assets/img/fotos/13.jpg', 2),
+           (NULL, 'Rafael', 'Moreno', 'Espinoza', 'rafa', '12345', './src/assets/img/fotos/6.jpg', 3),
+           (NULL, 'Maria Jóse', 'García', 'Mora', 'maria', '12345', './src/assets/img/fotos/11.jpg', 3),
+           (NULL, 'Laura', 'Zuñiga', 'Ramírez', 'laura', '12345', './src/assets/img/fotos/9.jpg', 2),
+           (NULL, 'Juliana', 'Gonzales', 'Suarez', 'ricardo', '12345', './src/assets/img/fotos/14.jpg', 3);
 
