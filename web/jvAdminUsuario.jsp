@@ -5,6 +5,90 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.ResultSet"%>
+
+<%
+    
+    String mensaje = "";
+    ResultSet vistaUsuario;
+    String vistaError;
+    
+    // Validación de rsInsUsuario
+    if(request.getSession().getAttribute("rsInsUsuario") != null){
+        vistaUsuario = (ResultSet)request.getSession().getAttribute("rsInsUsuario");
+        
+        // Validación de las banderas recibidas
+        
+        mensaje += "<script language='javascript'> ";
+        
+        switch( vistaUsuario.getInt(1) ){
+            case 0:
+                mensaje += "alert('Usuario registrado exitosamente');";
+                break;
+            case 1:
+                mensaje += "alert('El nombre capturado ya existe, verificar');";
+                break;
+            case 2:
+                mensaje += "alert('El nombre de usuario capturado ya existe');";
+                break;
+            case 3:
+                mensaje += "alert('El tipo de usuario no es valido, verificar');";
+                break;
+            default:
+                break;
+        }
+        mensaje += "</script>";
+        
+        // Inicialización del atributo en la sesión
+        request.getSession().setAttribute("rsInsUsuario", null);
+    }
+    
+    vistaError = (String)request.getSession().getAttribute("errorCode");
+    System.out.println(request.getSession().getAttribute("errorCode"));
+    if(request.getSession().getAttribute("errorCode") != null){
+        int vistaErrorInt = Integer.parseInt(vistaError);
+
+        mensaje += "<script language='javascript'> ";
+        //Validación del código de error recibido
+        switch (vistaErrorInt){
+            case 1:
+                mensaje += "alert('Campo Nombre vacio, verificar!');";
+                break;
+            case 2:
+                mensaje += "alert('Campo Apellido paterno vacio, verificar!');";
+                break;
+            case 3:
+                mensaje += "alert('Campo Apellido materno vacio, verificar!');";
+                break;
+            case 4:
+                mensaje += "alert('Campo Nombre usuario vacio, verificar!');";
+                break;
+            case 5:
+                mensaje += "alert('Campo Contraseña vacio, verificar!');";
+                break;
+            case 6:
+                mensaje += "alert('Campo Ruta vacio, verificar!');";
+                break;
+            case 7:
+                mensaje += "alert('Campo Tipo de usuario vacio, verificar!');";
+                break;
+            case 8:
+                mensaje += "alert('Error, al insertar el usuario contacte al administrador');";
+                break;
+            case 9:
+                mensaje += "alert('Error, contacte al administrador');";
+                break;
+            default:
+                break;
+        }
+
+        mensaje += "</script>";
+
+        // Inicialización del atributo de error en la sesión 
+        request.getSession().setAttribute("errorCode", null);
+    }
+    
+%>
 
 
 <!DOCTYPE html>
@@ -17,7 +101,7 @@
 <body style="background:#DAF6FE">
     
 <form id="frmPrincipal" method="POST" action="srvInsUsuario">  
-
+<%=mensaje%>
 <center>	
 	<table border="0" width="80%" cellspacing="0" cellpadding="5" class="sombreado">
 		<tr>
@@ -80,7 +164,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="text" class="textDecoracion" value="" name="txtPaterno" size="25">
+                                        <input type="text" class="textDecoracion" value="" name="txtPaterno" id="txtPaterno" size="25">
                                     </td>
                                 </tr>
                                 <tr>
@@ -90,7 +174,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="text" class="textDecoracion" value="" name="txtMaterno" size="25">
+                                        <input type="text" class="textDecoracion" value="" name="txtMaterno" id="txtMaterno" size="25">
                                     </td>
                                 </tr>
                                 <tr>
@@ -100,7 +184,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="text" class="textDecoracion" value="" name="txtUsuario" size="25">
+                                        <input type="text" class="textDecoracion" value="" name="txtUsuario" id="txtUsuario" size="25">
                                     </td>
                                 </tr>
                                 <tr>
@@ -110,7 +194,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="password" class="textDecoracion" value="" name="txtPwd" size="25">
+                                        <input type="password" class="textDecoracion" value="" name="txtPwd" id="txtPwd" size="25">
                                     </td>
                                 </tr>
                                 <tr>
@@ -120,7 +204,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="text" class="textDecoracion" value="" name="txtRuta" size="25">
+                                        <input type="text" class="textDecoracion" value="" name="txtRuta" id="txtRuta" size="25">
                                     </td>
                                 </tr>
                                 <tr>
@@ -186,6 +270,26 @@
     // Ejecucion de validacion y submit al controlador
     function insUsuario(){
         // Proceso de validacion de lado del cliente
+        
+        // Obtener los valores de cada caja de texto
+        let nombre = document.querySelector("#txtNombre").value;
+        let paterno = document.querySelector("#txtPaterno").value;
+        let materno = document.querySelector("#txtMaterno").value;
+        let usuario = document.querySelector("#txtUsuario").value;
+        let pwd = document.querySelector("#txtPwd").value;
+        let ruta = document.querySelector("#txtRuta").value;
+        let tipo = document.querySelector("#txtTipo").value;
+    
+         console.log(nombre + " " + paterno + " " + materno + " " + usuario + " " + pwd + " " + ruta + " " + tipo);
+    
+        if( nombre === null || nombre === ''){ alert('El nombre no puede quedar vacio'); return; }
+        if( paterno === null || paterno === ''){ alert('El apellido paterno no puede quedar vacio'); return;}
+        if( materno === null || materno === ''){ alert('El apellido materno no puede quedar vacio'); return;}
+        if( usuario === null || usuario === ''){ alert('El nombre de usuario no puede quedar vacio'); return;}
+        if( pwd === null || pwd === ''){ alert('La contraseña no puede quedar vacio'); return;}
+        if( ruta === null || ruta === ''){ alert('La ruta para la foto de perfil del usuario no puede quedar vacio'); return;}
+        if( tipo === null || tipo === ''){ alert('El tipo de usuario no puede quedar vacio'); return;}
+        
         sendControlador('srvInsUsuario');
     }
 </script>

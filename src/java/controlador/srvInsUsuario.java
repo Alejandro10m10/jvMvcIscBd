@@ -67,7 +67,7 @@ public class srvInsUsuario extends HttpServlet {
                 //Enviar el atributo rs a la página JSP
                 sendCorrectData(request, response, rs);
             } else{
-                 sendErrorCode(request, response, 8); return;
+                sendErrorCode(request, response, 8); return;
             }
             
         } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class srvInsUsuario extends HttpServlet {
     
     private void sendErrorCode(HttpServletRequest request, HttpServletResponse response, int errorKeyCode) throws ServletException, IOException{
         request.getSession().setAttribute("errorCode", String.valueOf(errorKeyCode));
-        request.getRequestDispatcher("jvPrincipal.jsp").forward(request, response);
+        request.getRequestDispatcher("jvAdminUsuario.jsp").forward(request, response);
     }
     
     private void sendCorrectData(HttpServletRequest request, HttpServletResponse response, ResultSet rs) throws ServletException, IOException{
