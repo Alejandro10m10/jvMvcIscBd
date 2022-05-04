@@ -6,15 +6,19 @@
 package controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.clsUsuario;
 
 /**
- *
- * @author aleja
+ * Objevito: 
+ *  Gestionar el proceso de insercion de usuarios
  */
 public class srvInsUsuario extends HttpServlet {
 
@@ -29,18 +33,58 @@ public class srvInsUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet srvInsUsuario</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet srvInsUsuario at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        try {
+            // Recepcion de los datos (cajas de texto)
+            String nombre = request.getParameter("txtNombre");
+            String paterno = request.getParameter("txtPaterno");
+            String materno = request.getParameter("txtMaterno");
+            String usuario = request.getParameter("txtUsuario");
+            String pwd = request.getParameter("txtPwd");
+            String ruta = request.getParameter("txtRuta");
+            String tipo = request.getParameter("txtTipo");  
+            
+            // Validacion de variables
+            if( nombre == null  || nombre.equals(""))  { sendErrorCode(request, response, 1); return; } // errorCode 1 = Nombre vacio
+            if( paterno == null || paterno.equals("")) { sendErrorCode(request, response, 2); return; } // errorCode 2 = Apellido paterno vacio
+            if( materno == null || materno.equals("")) { sendErrorCode(request, response, 3); return; } // errorCode 3 = Apellido materno vacio
+            if( usuario == null || usuario.equals("")) { sendErrorCode(request, response, 4); return; } // errorCode 4 = Nombre usuario vacio
+            if( pwd == null     || pwd.equals(""))     { sendErrorCode(request, response, 5); return; } // errorCode 5 = Password vacio
+            if( ruta == null    || ruta.equals(""))    { sendErrorCode(request, response, 6); return; } // errorCode 6 = Ruta vacio
+            if( tipo == null    || tipo.equals(""))    { sendErrorCode(request, response, 7); return; } // errorCode 7 = Tipo de usuario vacio
+            
+            // Aplicación de los atributos recibidos para ejecutar el método de inserción
+            
+            clsUsuario obj = new clsUsuario(); // Creación del objeto clsUsuario
+            
+            obj.connectDatabase(); //Ejecución del método de conexión
+            
+            ResultSet rs;
+            rs = obj.spInsUsuario(nombre, paterno, materno, usuario, pwd, ruta, tipo);
+            
+            // Lectura del registro recibido
+            if(rs.next()){
+                //Enviar el atributo rs a la página JSP
+                sendCorrectData(request, response, rs);
+            } else{
+                 sendErrorCode(request, response, 8); return;
+            }
+            
+        } catch (SQLException e) {
+            Logger.getLogger(srvInsUsuario.class.getName() ).log(Level.SEVERE, null, e);
+            sendErrorCode(request, response, 9); // errorCode 8 = Error de conectividad externo al usuario
         }
+        
+    }
+    
+    private void sendErrorCode(HttpServletRequest request, HttpServletResponse response, int errorKeyCode) throws ServletException, IOException{
+        request.getSession().setAttribute("errorCode", String.valueOf(errorKeyCode));
+        request.getRequestDispatcher("jvPrincipal.jsp").forward(request, response);
+    }
+    
+    private void sendCorrectData(HttpServletRequest request, HttpServletResponse response, ResultSet rs) throws ServletException, IOException{
+        request.getSession().setAttribute("rsInsUsuario", rs);
+        request.getRequestDispatcher("jvAdminUsuario.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
