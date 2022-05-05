@@ -8,17 +8,14 @@
 <%@page import="java.sql.ResultSet"%>
 
 <%
-    
     String mensaje = "";
-    ResultSet vistaUsuario;
     String vistaError;
     
     // Validación de rsInsUsuario
     if(request.getSession().getAttribute("rsInsUsuario") != null){
-        vistaUsuario = (ResultSet)request.getSession().getAttribute("rsInsUsuario");
+        ResultSet vistaUsuario = (ResultSet)request.getSession().getAttribute("rsInsUsuario");
         
         // Validación de las banderas recibidas
-        
         mensaje += "<script language='javascript'> ";
         
         switch( vistaUsuario.getInt(1) ){
@@ -44,7 +41,6 @@
     }
     
     vistaError = (String)request.getSession().getAttribute("errorCode");
-    System.out.println(request.getSession().getAttribute("errorCode"));
     if(request.getSession().getAttribute("errorCode") != null){
         int vistaErrorInt = Integer.parseInt(vistaError);
 
@@ -254,7 +250,6 @@
 </html>
 
 <script language="javascript">
-    
     const btnRegistrar = document.querySelector('#btnRegistrar');
     btnRegistrar.addEventListener('click', insUsuario);
     
@@ -289,7 +284,6 @@
         if( pwd === null || pwd === ''){ alert('La contraseña no puede quedar vacio'); return;}
         if( ruta === null || ruta === ''){ alert('La ruta para la foto de perfil del usuario no puede quedar vacio'); return;}
         if( tipo === null || tipo === ''){ alert('El tipo de usuario no puede quedar vacio'); return;}
-        
         sendControlador('srvInsUsuario');
     }
 </script>

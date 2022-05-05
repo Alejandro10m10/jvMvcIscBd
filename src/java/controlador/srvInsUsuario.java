@@ -74,7 +74,6 @@ public class srvInsUsuario extends HttpServlet {
             Logger.getLogger(srvInsUsuario.class.getName() ).log(Level.SEVERE, null, e);
             sendErrorCode(request, response, 9); // errorCode 8 = Error de conectividad externo al usuario
         }
-        
     }
     
     private void sendErrorCode(HttpServletRequest request, HttpServletResponse response, int errorKeyCode) throws ServletException, IOException{
