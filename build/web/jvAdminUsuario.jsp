@@ -34,10 +34,12 @@
             default:
                 break;
         }
+        mensaje += "document.location.href = 'jvAdminUsuario.jsp'";
         mensaje += "</script>";
         
         // Inicialización del atributo en la sesión
         request.getSession().setAttribute("rsInsUsuario", null);
+        request.getSession().invalidate();
     }
     
     vistaError = (String)request.getSession().getAttribute("errorCode");
@@ -77,11 +79,12 @@
             default:
                 break;
         }
-
+        mensaje += "document.location.href = 'jvAdminUsuario.jsp'";
         mensaje += "</script>";
 
         // Inicialización del atributo de error en la sesión 
         request.getSession().setAttribute("errorCode", null);
+        request.getSession().invalidate();
     }
     
 %>
