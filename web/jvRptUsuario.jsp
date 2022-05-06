@@ -141,7 +141,7 @@
                             <a href="javascript: rptUsuario();" target="_self" class="fontVinculo">Reporte de Usuarios (POST)</a>
                             -->
                             <br><br>
-                            <a href="" target="_self" class="fontVinculo">Gestion de Usuarios</a>
+                            <a href="jvAdminUsuario.jsp" target="_self" class="fontVinculo">Gestion de Usuarios</a>
                             <br><br>
                             <a href="http://www.yahoo.com" target="_self" class="fontVinculo">opcion 3</a>
                             <br><br>

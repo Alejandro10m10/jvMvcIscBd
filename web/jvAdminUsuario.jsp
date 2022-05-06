@@ -267,15 +267,13 @@
         // Proceso de validacion de lado del cliente
         
         // Obtener los valores de cada caja de texto
-        let nombre = document.querySelector("#txtNombre").value;
-        let paterno = document.querySelector("#txtPaterno").value;
-        let materno = document.querySelector("#txtMaterno").value;
-        let usuario = document.querySelector("#txtUsuario").value;
-        let pwd = document.querySelector("#txtPwd").value;
-        let ruta = document.querySelector("#txtRuta").value;
-        let tipo = document.querySelector("#txtTipo").value;
-    
-         console.log(nombre + " " + paterno + " " + materno + " " + usuario + " " + pwd + " " + ruta + " " + tipo);
+        let nombre = document.querySelector("#txtNombre").value,
+            paterno = document.querySelector("#txtPaterno").value,
+            materno = document.querySelector("#txtMaterno").value,
+            usuario = document.querySelector("#txtUsuario").value,
+            pwd = document.querySelector("#txtPwd").value,
+            ruta = document.querySelector("#txtRuta").value,
+            tipo = document.querySelector("#txtTipo").value;
     
         if( nombre === null || nombre === ''){ alert('El nombre no puede quedar vacio'); return; }
         if( paterno === null || paterno === ''){ alert('El apellido paterno no puede quedar vacio'); return;}
@@ -284,6 +282,12 @@
         if( pwd === null || pwd === ''){ alert('La contraseña no puede quedar vacio'); return;}
         if( ruta === null || ruta === ''){ alert('La ruta para la foto de perfil del usuario no puede quedar vacio'); return;}
         if( tipo === null || tipo === ''){ alert('El tipo de usuario no puede quedar vacio'); return;}
+        
+        // Validación extra para el tipo de usuario
+        tipo = Number(tipo);
+        if( isNaN(tipo) ){ alert('El tipo de usuario tiene que ser de tipo numérico'); return;}
+        if( tipo > 3 || tipo < 1 ){ alert('El valor para el tipo de usuario tiene que ser 1, 2 ó 3'); return;}
+        
         sendControlador('srvInsUsuario');
     }
 </script>
