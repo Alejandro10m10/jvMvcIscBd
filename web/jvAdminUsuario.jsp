@@ -153,7 +153,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                      <input type="text" class="textDecoracion" value="" name="txtNombre" id="txtNombre" size="25">
+                                        <input type="text" class="textDecoracion" value="" name="txtNombre" id="txtNombre" size="25" maxlength="20">
                                     </td>
                                 </tr>
                                 <tr>
@@ -163,7 +163,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="text" class="textDecoracion" value="" name="txtPaterno" id="txtPaterno" size="25">
+                                        <input type="text" class="textDecoracion" value="" name="txtPaterno" id="txtPaterno" size="25" maxlength="20">
                                     </td>
                                 </tr>
                                 <tr>
@@ -173,7 +173,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="text" class="textDecoracion" value="" name="txtMaterno" id="txtMaterno" size="25">
+                                        <input type="text" class="textDecoracion" value="" name="txtMaterno" id="txtMaterno" size="25" maxlength="20">
                                     </td>
                                 </tr>
                                 <tr>
@@ -183,7 +183,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="text" class="textDecoracion" value="" name="txtUsuario" id="txtUsuario" size="25">
+                                        <input type="text" class="textDecoracion" value="" name="txtUsuario" id="txtUsuario" size="25" maxlength="20">
                                     </td>
                                 </tr>
                                 <tr>
@@ -193,7 +193,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="password" class="textDecoracion" value="" name="txtPwd" id="txtPwd" size="25">
+                                        <input type="password" class="textDecoracion" value="" name="txtPwd" id="txtPwd" size="25" maxlength="20">
                                     </td>
                                 </tr>
                                 <tr>
@@ -203,7 +203,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="text" class="textDecoracion" value="" name="txtRuta" id="txtRuta" size="25">
+                                        <input type="text" class="textDecoracion" value="" name="txtRuta" id="txtRuta" size="25" maxlength="200">
                                     </td>
                                 </tr>
                                 <tr>
@@ -213,7 +213,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="text" class="textDecoracion" value="" name="txtTipo" id="txtTipo" size="25">
+                                        <input type="text" class="textDecoracion" value="" name="txtTipo" id="txtTipo" size="25" maxlength="1">
                                     </td>
                                 </tr>
                                 
