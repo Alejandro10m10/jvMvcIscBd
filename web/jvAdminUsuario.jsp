@@ -288,6 +288,6 @@
         if( isNaN(tipo) ){ alert('El tipo de usuario tiene que ser de tipo numérico'); return;}
         if( tipo > 3 || tipo < 1 ){ alert('El valor para el tipo de usuario tiene que ser 1, 2 ó 3'); return;}
         
-        sendControlador('srvInsUsuario');
+        if(confirm('¿Estas seguro que deseas añadir al usuario?')) sendControlador('srvInsUsuario');
     }
 </script>
