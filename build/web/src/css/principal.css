@@ -96,3 +96,11 @@ body{
    height: 80px;
    border-radius: 50%;
 }
+
+#selectUsuario{
+    width: 242.4px;
+}
+
+.no-display{
+    display: none;
+}

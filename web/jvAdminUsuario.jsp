@@ -146,6 +146,21 @@
                             </font>
 
                             <table width="80%" border="0">
+                                <tr id="selectUsuarioContent" class="no-display">
+                                    <td>
+                                        <font class="fontTrabajoEtiquetas">
+                                        Usuario:
+                                        </font>
+                                    </td>
+                                    <td>
+                                        <select class="textDecoracion" name="selectUsuario" id="selectUsuario">
+                                            <option value="volvo">Volvo</option>
+                                        </select>
+                                        <!-- comment
+                                        <input type="text" class="textDecoracion" value="" name="selectUsuario" id="selectUsuario" size="25" maxlength="20">
+                                        -->
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>
                                         <font class="fontTrabajoEtiquetas">
@@ -193,7 +208,7 @@
                                         </font>
                                     </td>
                                     <td>
-                                        <input type="password" class="textDecoracion" value="" name="txtPwd" id="txtPwd" size="25" maxlength="20">
+                                        <input type="password" class="textDecoracion" value="" name="txtPwd" id="txtPwd" size="25" maxlength="20" autocomplete="on">
                                     </td>
                                 </tr>
                                 <tr>
@@ -222,7 +237,7 @@
                                         <br>
                                         <input type="button" id="btnRegistrar" value="Registrar" class="botonDecoracion">
                                         &nbsp;&nbsp;
-                                        <input type="button"  value="Modificar" class="botonDecoracion">
+                                        <input type="button" id="btnModificar" value="Modificar" class="botonDecoracion">
                                         &nbsp;&nbsp;
                                         <input type="button"  value="Eliminar" class="botonDecoracion">
 
@@ -253,8 +268,48 @@
 </html>
 
 <script language="javascript">
-    const btnRegistrar = document.querySelector('#btnRegistrar');
-    btnRegistrar.addEventListener('click', insUsuario);
+    const btnRegistrar = document.querySelector('#btnRegistrar'),
+          btnModificar = document.querySelector('#btnModificar'),
+          selectUsuarioContent = document.querySelector('#selectUsuarioContent');
+  
+    eventListeners();
+  
+    function eventListeners(){
+        btnRegistrar.addEventListener('click', insUsuario);
+        btnModificar.addEventListener('click', updUsuario);
+    }
+    
+    let enabledUpdateButton = true,
+        enabledInsertButton = true;
+    
+    // Ejecucion de validacion y submit al controlador
+    function insUsuario(){
+        
+        if(!enabledInsertButton){
+            showListaUsuarios(false);
+            enabledInsertButton = !enabledInsertButton;
+            enabledUpdateButton = true;
+            return;
+        } 
+        
+        // Proceso de validacion de lado del cliente
+        if(!validarCampos()) return;
+        
+        if(confirm('¿Estas seguro que deseas añadir al usuario?')) sendControlador('srvInsUsuario');
+    }
+   
+    function updUsuario(){
+        
+        if(enabledUpdateButton){
+            showListaUsuarios(true);
+            enabledUpdateButton = !enabledUpdateButton;
+            enabledInsertButton = false;
+            return;
+        }
+        
+        if(!validarCampos('update')) return;
+
+    }
     
     function sendControlador(controladorName){
         document.forms[0].action = controladorName;
@@ -265,10 +320,16 @@
         sendControlador('srvRptUsuario');
     }
     
-    // Ejecucion de validacion y submit al controlador
-    function insUsuario(){
-        // Proceso de validacion de lado del cliente
-        
+    function showListaUsuarios(value){
+        if(value && selectUsuarioContent.classList.contains('no-display')){
+            selectUsuarioContent.classList.remove('no-display');
+        } else {
+            selectUsuarioContent.classList.add('no-display');
+        }
+    }
+    
+    // Proceso de validacion de lado del cliente
+    function validarCampos(validation){
         // Obtener los valores de cada caja de texto
         let nombre = document.querySelector("#txtNombre").value,
             paterno = document.querySelector("#txtPaterno").value,
@@ -278,19 +339,25 @@
             ruta = document.querySelector("#txtRuta").value,
             tipo = document.querySelector("#txtTipo").value;
     
-        if( nombre === null || nombre === ''){ alert('El nombre no puede quedar vacio'); return; }
-        if( paterno === null || paterno === ''){ alert('El apellido paterno no puede quedar vacio'); return;}
-        if( materno === null || materno === ''){ alert('El apellido materno no puede quedar vacio'); return;}
-        if( usuario === null || usuario === ''){ alert('El nombre de usuario no puede quedar vacio'); return;}
-        if( pwd === null || pwd === ''){ alert('La contraseña no puede quedar vacio'); return;}
-        if( ruta === null || ruta === ''){ alert('La ruta para la foto de perfil del usuario no puede quedar vacio'); return;}
-        if( tipo === null || tipo === ''){ alert('El tipo de usuario no puede quedar vacio'); return;}
+        if( nombre === null || nombre === ''){ alert('El nombre no puede quedar vacio'); return false; }
+        if( paterno === null || paterno === ''){ alert('El apellido paterno no puede quedar vacio'); return false;}
+        if( materno === null || materno === ''){ alert('El apellido materno no puede quedar vacio'); return false;}
+        if( usuario === null || usuario === ''){ alert('El nombre de usuario no puede quedar vacio'); return false;}
+        if( pwd === null || pwd === ''){ alert('La contraseña no puede quedar vacio'); return false;}
+        if( ruta === null || ruta === ''){ alert('La ruta para la foto de perfil del usuario no puede quedar vacio'); return false;}
+        if( tipo === null || tipo === ''){ alert('El tipo de usuario no puede quedar vacio'); return false;}
         
         // Validación extra para el tipo de usuario
         tipo = Number(tipo);
-        if( isNaN(tipo) ){ alert('El tipo de usuario tiene que ser de tipo numérico'); return;}
-        if( tipo > 3 || tipo < 1 ){ alert('El valor para el tipo de usuario tiene que ser 1, 2 ó 3'); return;}
+        if( isNaN(tipo) ){ alert('El tipo de usuario tiene que ser de tipo numérico'); return false;}
+        if( tipo > 3 || tipo < 1 ){ alert('El valor para el tipo de usuario tiene que ser 1, 2 ó 3'); return false;}
         
-        if(confirm('¿Estas seguro que deseas añadir al usuario?')) sendControlador('srvInsUsuario');
+        if(validation === 'update'){
+            let idUsuario = document.querySelector("#selectUsuario").value;
+            console.log(idUsuario);
+        }
+        
+        return true;
     }
+    
 </script>
