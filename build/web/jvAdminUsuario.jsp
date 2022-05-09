@@ -178,11 +178,8 @@
                                     </td>
                                     <td>
                                         <select class="textDecoracion" name="selectUsuario" id="selectUsuario">
-                                            <option value="volvo">Volvo</option>
+                                            <option value="0">Seleccione un usuario</option>
                                         </select>
-                                        <!-- comment
-                                        <input type="text" class="textDecoracion" value="" name="selectUsuario" id="selectUsuario" size="25" maxlength="20">
-                                        -->
                                     </td>
                                 </tr>
                                 <tr>
@@ -295,6 +292,7 @@
     const btnRegistrar = document.querySelector('#btnRegistrar'),
           btnModificar = document.querySelector('#btnModificar'),
           selectUsuarioContent = document.querySelector('#selectUsuarioContent');
+          selectUsuarioTag = document.querySelector('#selectUsuario');
     let usersOBJ =  JSON.parse(`<%=selectElement%>`);
     
     document.addEventListener('DOMContentLoaded', init);
@@ -304,8 +302,13 @@
         fillUsersSelect(usersOBJ);
     }
     
-    function fillUsersSelect(){
-        console.log(usersOBJ);
+    function fillUsersSelect(usersOBJ){
+        usersOBJ.forEach( (user)=> {
+            const {id, nombre, apellidoPaterno, apellidoMaterno} = user;
+            let option = document.createElement('option');
+            option.textContent = id + ' - ' + nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno ;
+            selectUsuarioTag.appendChild(option);
+        })
     }
   
     function eventListeners(){
@@ -388,7 +391,6 @@
         
         if(validation === 'update'){
             let idUsuario = document.querySelector("#selectUsuario").value;
-            console.log(idUsuario);
         }
         
         return true;
