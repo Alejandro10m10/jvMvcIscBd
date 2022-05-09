@@ -4,6 +4,7 @@
     Author     : aleja
 --%>
 
+<%@page import="modelo.clsUsuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.ResultSet"%>
 
@@ -87,6 +88,29 @@
         request.getSession().invalidate();
     }
     
+    // Llenar el select con los usuarios
+    clsUsuario usuariosObj = new clsUsuario(); // Creación del objeto clsUsuario
+    usuariosObj.connectDatabase(); //Ejecución del método de conexión
+            
+    ResultSet rs;
+    rs = usuariosObj.usersList();
+
+    // Lectura del registro recibido
+    String selectElement = "[";
+    while(rs.next()){
+        selectElement += "{ "
+                        + "\"id\": " + rs.getInt(1) + ", " 
+                        + "\"nombre\": \"" + rs.getString(2) + "\", "
+                        + "\"apellidoPaterno\": \"" + rs.getString(3) + "\", "
+                        + "\"apellidoMaterno\": \"" + rs.getString(4) + "\", "
+                        + "\"usuario\": \"" + rs.getString(5) + "\", "
+                        + "\"srcFotoPerfil\": \"" + rs.getString(6) + "\", "
+                        + "\"tipoUsuario\": " + rs.getString(7) + " "
+                        + "},";
+    }
+
+    selectElement = selectElement.substring(0, (selectElement.length() -1));
+    selectElement += "]";
 %>
 
 
@@ -271,8 +295,18 @@
     const btnRegistrar = document.querySelector('#btnRegistrar'),
           btnModificar = document.querySelector('#btnModificar'),
           selectUsuarioContent = document.querySelector('#selectUsuarioContent');
-  
-    eventListeners();
+    let usersOBJ =  JSON.parse(`<%=selectElement%>`);
+    
+    document.addEventListener('DOMContentLoaded', init);
+
+    function init(){
+        eventListeners();
+        fillUsersSelect(usersOBJ);
+    }
+    
+    function fillUsersSelect(){
+        console.log(usersOBJ);
+    }
   
     function eventListeners(){
         btnRegistrar.addEventListener('click', insUsuario);

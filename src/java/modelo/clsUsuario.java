@@ -84,6 +84,14 @@ public class clsUsuario {
         return rs;
     }
     
+    public ResultSet usersList() throws SQLException{
+        consultaSQL = "SELECT usuario.USU_CVE_USUARIO, usuario.USU_NOMBRE, usuario.USU_APELLIDO_PATERNO, \n" +
+                        " usuario.USU_APELLIDO_MATERNO, usuario.USU_USUARIO, usuario.USU_RUTA, usuario.TIP_CVE_TIPOUSUARIO FROM usuario;";
+        st = (Statement)this.cn.createStatement();
+        rs = st.executeQuery(consultaSQL);
+        return rs;
+    }
+    
     // Creación del método para Insertar Usuarios
     public ResultSet spInsUsuario(String nombre, String paterno, String materno, String usuario, String contrasena, String ruta, String tipo) throws SQLException{
         consultaSQL = "CALL spInsUsuario('" + nombre + "', '" + paterno + "', '" + materno + "', '" 
