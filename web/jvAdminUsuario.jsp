@@ -337,10 +337,25 @@
             clearInputs();
         } else{
             enableFields(true);
+            getData(idUsuario);
         }
     }
     
+    function getData(idUsuario){
+        const userOBJ = usersOBJ.filter( user => user.id === idUsuario);
+        const {nombre, apellidoPaterno, apellidoMaterno, usuario, srcFotoPerfil, tipoUsuario} = userOBJ[0];
+        
+        nombreInput.value = nombre;
+        paternoInput.value = apellidoPaterno;
+        maternoInput.value = apellidoMaterno;
+        usuarioInput.value = usuario;
+        rutaInput.value = srcFotoPerfil;
+        tipoInput.value = tipoUsuario;
+        
+    }
+    
     function clearInputs(){
+        selectUsuarioTag.options[0].selected = true;
         nombreInput.value = '';
         paternoInput.value = '';
         maternoInput.value = '';
@@ -380,13 +395,13 @@
     
     // Ejecucion de validacion y submit al controlador
     function insUsuario(){
-        clearInputs()
-        enableFields(true);
         
         if(!enabledInsertButton){
             showListaUsuarios(false);
             enabledInsertButton = !enabledInsertButton;
             enabledUpdateButton = true;
+            clearInputs()
+            enableFields(true);
             return;
         } 
         
@@ -397,13 +412,13 @@
     }
    
     function updUsuario(){
-        clearInputs()
-        enableFields(false);
         
         if(enabledUpdateButton){
             showListaUsuarios(true);
             enabledUpdateButton = !enabledUpdateButton;
             enabledInsertButton = false;
+            clearInputs()
+            enableFields(false);
             return;
         }
         
