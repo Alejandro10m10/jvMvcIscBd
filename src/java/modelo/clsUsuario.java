@@ -101,6 +101,15 @@ public class clsUsuario {
         return rs;
     }
     
+    // Creación del método para Modificar Usuarios
+    public ResultSet spUpdUsuario(int id, String nombre, String paterno, String materno, String usuario, String contrasena, String ruta, String tipo) throws SQLException{
+        consultaSQL = "CALL spUpdUsuario(" + id + ", '" + nombre + "', '" + paterno + "', '" + materno + "', '" 
+                                            + usuario + "', '" + contrasena + "', '" + ruta + "', '" + tipo + "')" ;
+        st = (Statement)this.cn.createStatement();
+        rs = st.executeQuery(consultaSQL);
+        return rs;
+    }
+    
     // ------------------------
     // Setters and Getters
     // ------------------------

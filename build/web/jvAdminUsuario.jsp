@@ -170,6 +170,16 @@
                             </font>
 
                             <table width="80%" border="0">
+                                <tr class="userIdContent">
+                                    <td>
+                                        <font class="fontTrabajoEtiquetas">
+                                        ID:
+                                        </font>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="textDecoracion" value="" name="txtID" id="txtID" size="25">
+                                    </td>
+                                </tr>
                                 <tr id="selectUsuarioContent" class="no-display">
                                     <td>
                                         <font class="fontTrabajoEtiquetas">
@@ -294,7 +304,8 @@
           selectUsuarioContent = document.querySelector('#selectUsuarioContent');
           selectUsuarioTag = document.querySelector('#selectUsuario');
           
-    let nombreInput = document.querySelector("#txtNombre"),
+    let idInput = document.querySelector('#txtID');
+        nombreInput = document.querySelector("#txtNombre"),
         paternoInput = document.querySelector("#txtPaterno"),
         maternoInput = document.querySelector("#txtMaterno"),
         usuarioInput = document.querySelector("#txtUsuario"),
@@ -343,8 +354,9 @@
     
     function getData(idUsuario){
         const userOBJ = usersOBJ.filter( user => user.id === idUsuario);
-        const {nombre, apellidoPaterno, apellidoMaterno, usuario, srcFotoPerfil, tipoUsuario} = userOBJ[0];
+        const {id, nombre, apellidoPaterno, apellidoMaterno, usuario, srcFotoPerfil, tipoUsuario} = userOBJ[0];
         
+        idInput.value = id;
         nombreInput.value = nombre;
         paternoInput.value = apellidoPaterno;
         maternoInput.value = apellidoMaterno;
@@ -356,6 +368,7 @@
     
     function clearInputs(){
         selectUsuarioTag.options[0].selected = true;
+        idInput.value = '';
         nombreInput.value = '';
         paternoInput.value = '';
         maternoInput.value = '';
@@ -423,24 +436,9 @@
         }
         
         if(!validarCampos('update')) return;
+        
+        if(confirm("¿Estas seguro que deseas modificar al usuario con el id: " + idInput.value + " ?")) sendControlador('srvUpdUsuario');
 
-    }
-    
-    function sendControlador(controladorName){
-        document.forms[0].action = controladorName;
-        document.forms[0].submit();    
-    }
-    
-    function rptUsuarios(){
-        sendControlador('srvRptUsuario');
-    }
-    
-    function showListaUsuarios(value){
-        if(value && selectUsuarioContent.classList.contains('no-display')){
-            selectUsuarioContent.classList.remove('no-display');
-        } else {
-            selectUsuarioContent.classList.add('no-display');
-        }
     }
     
     // Proceso de validacion de lado del cliente
@@ -449,6 +447,7 @@
             let idUsuario = parseInt(selectUsuarioTag.value);
             if(idUsuario === 0){ alert('No has seleccionado ningun usuario para modificarlo.'); return false; }
         }
+        
         // Obtener los valores de cada caja de texto
         let nombre = nombreInput.value,
             paterno = paternoInput.value,
@@ -472,6 +471,23 @@
         if( tipo > 3 || tipo < 1 ){ alert('El valor para el tipo de usuario tiene que ser 1, 2 ó 3'); return false;}
      
         return true;
+    }
+    
+    function sendControlador(controladorName){
+        document.forms[0].action = controladorName;
+        document.forms[0].submit();    
+    }
+    
+    function rptUsuarios(){
+        sendControlador('srvRptUsuario');
+    }
+    
+    function showListaUsuarios(value){
+        if(value && selectUsuarioContent.classList.contains('no-display')){
+            selectUsuarioContent.classList.remove('no-display');
+        } else {
+            selectUsuarioContent.classList.add('no-display');
+        }
     }
     
 </script>

@@ -12,6 +12,10 @@
         <servlet-name>srvInsUsuario</servlet-name>
         <servlet-class>controlador.srvInsUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>srvUpdUsuario</servlet-name>
+        <servlet-class>controlador.srvUpdUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>srvAcceso</servlet-name>
         <url-pattern>/srvAcceso</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>srvInsUsuario</servlet-name>
         <url-pattern>/srvInsUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvUpdUsuario</servlet-name>
+        <url-pattern>/srvUpdUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
