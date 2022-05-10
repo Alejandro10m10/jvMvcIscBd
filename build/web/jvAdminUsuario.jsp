@@ -293,7 +293,18 @@
           btnModificar = document.querySelector('#btnModificar'),
           selectUsuarioContent = document.querySelector('#selectUsuarioContent');
           selectUsuarioTag = document.querySelector('#selectUsuario');
-    let usersOBJ =  JSON.parse(`<%=selectElement%>`);
+          
+    let nombreInput = document.querySelector("#txtNombre"),
+        paternoInput = document.querySelector("#txtPaterno"),
+        maternoInput = document.querySelector("#txtMaterno"),
+        usuarioInput = document.querySelector("#txtUsuario"),
+        pwdInput = document.querySelector("#txtPwd"),
+        rutaInput = document.querySelector("#txtRuta"),
+        tipoInput = document.querySelector("#txtTipo");
+    
+    let enabledUpdateButton = true,
+        enabledInsertButton = true,
+        usersOBJ =  JSON.parse(`<%=selectElement%>`);
     
     document.addEventListener('DOMContentLoaded', init);
 
@@ -307,6 +318,7 @@
             const {id, nombre, apellidoPaterno, apellidoMaterno} = user;
             let option = document.createElement('option');
             option.textContent = id + ' - ' + nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno ;
+            option.setAttribute('value', id);
             selectUsuarioTag.appendChild(option);
         })
     }
@@ -314,13 +326,62 @@
     function eventListeners(){
         btnRegistrar.addEventListener('click', insUsuario);
         btnModificar.addEventListener('click', updUsuario);
+        selectUsuario.addEventListener('change', getUserSelected);
     }
     
-    let enabledUpdateButton = true,
-        enabledInsertButton = true;
+    function getUserSelected(e){
+        let idUsuario = parseInt(e.target.value);
+        
+        if(idUsuario === 0){ 
+            enableFields(false);
+            clearInputs();
+        } else{
+            enableFields(true);
+        }
+    }
+    
+    function clearInputs(){
+        nombreInput.value = '';
+        paternoInput.value = '';
+        maternoInput.value = '';
+        usuarioInput.value = '';
+        pwdInput.value = '';
+        rutaInput.value = '';
+        tipoInput.value = '';
+    }
+    
+    function enableFields(value){
+        nombreInput.disabled = !value;
+        paternoInput.disabled = !value;
+        maternoInput.disabled = !value;
+        usuarioInput.disabled = !value;
+        pwdInput.disabled = !value;
+        rutaInput.disabled = !value;
+        tipoInput.disabled = !value;
+        
+        if(!value){
+            nombreInput.classList.add('opacity');
+            paternoInput.classList.add('opacity');
+            maternoInput.classList.add('opacity');
+            usuarioInput.classList.add('opacity');
+            pwdInput.classList.add('opacity');
+            rutaInput.classList.add('opacity');
+            tipoInput.classList.add('opacity');
+        } else{
+            nombreInput.classList.remove('opacity');
+            paternoInput.classList.remove('opacity');
+            maternoInput.classList.remove('opacity');
+            usuarioInput.classList.remove('opacity');
+            pwdInput.classList.remove('opacity');
+            rutaInput.classList.remove('opacity');
+            tipoInput.classList.remove('opacity');
+        }
+    }
     
     // Ejecucion de validacion y submit al controlador
     function insUsuario(){
+        clearInputs()
+        enableFields(true);
         
         if(!enabledInsertButton){
             showListaUsuarios(false);
@@ -336,6 +397,8 @@
     }
    
     function updUsuario(){
+        clearInputs()
+        enableFields(false);
         
         if(enabledUpdateButton){
             showListaUsuarios(true);
@@ -367,14 +430,18 @@
     
     // Proceso de validacion de lado del cliente
     function validarCampos(validation){
+        if(validation === 'update'){
+            let idUsuario = parseInt(selectUsuarioTag.value);
+            if(idUsuario === 0){ alert('No has seleccionado ningun usuario para modificarlo.'); return false; }
+        }
         // Obtener los valores de cada caja de texto
-        let nombre = document.querySelector("#txtNombre").value,
-            paterno = document.querySelector("#txtPaterno").value,
-            materno = document.querySelector("#txtMaterno").value,
-            usuario = document.querySelector("#txtUsuario").value,
-            pwd = document.querySelector("#txtPwd").value,
-            ruta = document.querySelector("#txtRuta").value,
-            tipo = document.querySelector("#txtTipo").value;
+        let nombre = nombreInput.value,
+            paterno = paternoInput.value,
+            materno = maternoInput.value,
+            usuario = usuarioInput.value,
+            pwd = pwdInput.value,
+            ruta = rutaInput.value,
+            tipo = tipoInput.value;
     
         if( nombre === null || nombre === ''){ alert('El nombre no puede quedar vacio'); return false; }
         if( paterno === null || paterno === ''){ alert('El apellido paterno no puede quedar vacio'); return false;}
@@ -388,11 +455,7 @@
         tipo = Number(tipo);
         if( isNaN(tipo) ){ alert('El tipo de usuario tiene que ser de tipo numérico'); return false;}
         if( tipo > 3 || tipo < 1 ){ alert('El valor para el tipo de usuario tiene que ser 1, 2 ó 3'); return false;}
-        
-        if(validation === 'update'){
-            let idUsuario = document.querySelector("#selectUsuario").value;
-        }
-        
+     
         return true;
     }
     

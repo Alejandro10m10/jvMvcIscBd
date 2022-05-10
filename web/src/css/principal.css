@@ -104,3 +104,7 @@ body{
 .no-display{
     display: none;
 }
+
+.opacity{
+    opacity: 0.5;
+}
