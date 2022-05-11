@@ -12,6 +12,32 @@
     String mensaje = "";
     String vistaError;
     
+    if(request.getSession().getAttribute("rsDelUsuario") != null){
+        ResultSet delUsuario = (ResultSet)request.getSession().getAttribute("rsDelUsuario");
+        
+        // Validación de las banderas recibidas
+        mensaje += "<script language='javascript'> ";
+        
+        switch( delUsuario.getInt(1) ){
+            case 0:
+                mensaje += "alert('Usuario se ha eliminado exitosamente');";
+                break;
+            case 1:
+                mensaje += "alert('No existe ningun usuario con el ID seleccionado, no se ha eliminado a nadie.');";
+            default:
+                break;
+        }
+        mensaje += "document.location.href = 'jvAdminUsuario.jsp'";
+        mensaje += "</script>";
+        
+        // Inicialización del atributo en la sesión
+        request.getSession().setAttribute("rsUpdUsuario", null);
+        request.getSession().invalidate();
+        
+        request.getSession().setAttribute("errorCode", null);
+        request.getSession().invalidate();
+    }
+    
     if(request.getSession().getAttribute("rsUpdUsuario") != null){
         ResultSet updUsuario = (ResultSet)request.getSession().getAttribute("rsUpdUsuario");
         
@@ -503,7 +529,7 @@
         
         if(!validarCampos('delete')) return;
         
-        if(confirm("¿Estas seguro que deseas eliminar al usuario con el id: " + idInput.value + " ?")) console.log('delete user');
+        if(confirm("¿Estas seguro que deseas eliminar al usuario con el id: " + idInput.value + " ?")) sendControlador('srvDelUsuario');
     }
     
     // Proceso de validacion de lado del cliente

@@ -38,14 +38,6 @@ public class srvDelUsuario extends HttpServlet {
         try {
             // Recepcion de los datos (cajas de texto)
             String idString = request.getParameter("txtID");
-            String nombre = request.getParameter("txtNombre");
-            String paterno = request.getParameter("txtPaterno");
-            String materno = request.getParameter("txtMaterno");
-            String usuario = request.getParameter("txtUsuario");
-            String pwd = request.getParameter("txtPwd");
-            String ruta = request.getParameter("txtRuta");
-            String tipo = request.getParameter("txtTipo");  
-            
             
             // Validacion de variables
             if( idString == null  || idString.equals(""))  { sendErrorCode(request, response, 1); return; } // errorCode 1 = ID vacio
@@ -54,7 +46,7 @@ public class srvDelUsuario extends HttpServlet {
             try {
                 id = Integer.parseInt(idString);
             } catch (NumberFormatException e) {
-                sendErrorCode(request, response, 9); return; // errorCode 9 = ID no es un numero
+                sendErrorCode(request, response, 2); return; // errorCode 2 = ID no es un numero
             }
             // Aplicación de los atributos recibidos para ejecutar el método de inserción
             
@@ -63,19 +55,19 @@ public class srvDelUsuario extends HttpServlet {
             obj.connectDatabase(); //Ejecución del método de conexión
             
             ResultSet rs;
-            rs = obj.spUpdUsuario(id, nombre, paterno, materno, usuario, pwd, ruta, tipo);
+            rs = obj.spDelUsuario(id);
             
             // Lectura del registro recibido
             if(rs.next()){
                 //Enviar el atributo rs a la página JSP
                 sendCorrectData(request, response, rs);
             } else{
-                sendErrorCode(request, response, 8); return;
+                sendErrorCode(request, response, 3); return;
             }
             
         } catch (SQLException e) {
             Logger.getLogger(srvDelUsuario.class.getName() ).log(Level.SEVERE, null, e);
-            sendErrorCode(request, response, 9); // errorCode 8 = Error de conectividad externo al usuario
+            sendErrorCode(request, response, 4); // errorCode 8 = Error de conectividad externo al usuario
         }
     }
 

@@ -110,6 +110,14 @@ public class clsUsuario {
         return rs;
     }
     
+    // Creación del método para Eliminar Usuarios
+    public ResultSet spDelUsuario(int id) throws SQLException{
+        consultaSQL = "CALL spDelUsuario(" + id + ")" ;
+        st = (Statement)this.cn.createStatement();
+        rs = st.executeQuery(consultaSQL);
+        return rs;
+    }
+    
     // ------------------------
     // Setters and Getters
     // ------------------------
