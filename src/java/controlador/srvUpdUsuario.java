@@ -6,7 +6,6 @@
 package controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -34,6 +33,7 @@ public class srvUpdUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8"); // Obtener los valores sin importar que tengan acentos
         try {
             // Recepcion de los datos (cajas de texto)
             String idString = request.getParameter("txtID");
@@ -44,6 +44,8 @@ public class srvUpdUsuario extends HttpServlet {
             String pwd = request.getParameter("txtPwd");
             String ruta = request.getParameter("txtRuta");
             String tipo = request.getParameter("txtTipo");  
+            
+            System.out.println(idString + " " + nombre + " " + paterno + " " + materno + " " + usuario + " " + pwd + " " + ruta + " " + tipo + " ");
             
             // Validacion de variables
             if( idString == null  || idString.equals(""))  { sendErrorCode(request, response, 1); return; } // errorCode 1 = ID vacio
@@ -73,10 +75,9 @@ public class srvUpdUsuario extends HttpServlet {
             // Lectura del registro recibido
             if(rs.next()){
                 //Enviar el atributo rs a la página JSP
-                System.out.println(rs.getString(1));
-                //sendCorrectData(request, response, rs);
+                sendCorrectData(request, response, rs);
             } else{
-                //sendErrorCode(request, response, 8); return;
+                sendErrorCode(request, response, 8); return;
             }
             
         } catch (SQLException e) {

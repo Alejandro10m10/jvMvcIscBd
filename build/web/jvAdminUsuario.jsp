@@ -12,6 +12,42 @@
     String mensaje = "";
     String vistaError;
     
+    if(request.getSession().getAttribute("rsUpdUsuario") != null){
+        ResultSet updUsuario = (ResultSet)request.getSession().getAttribute("rsUpdUsuario");
+        
+        // Validación de las banderas recibidas
+        mensaje += "<script language='javascript'> ";
+        
+        switch( updUsuario.getInt(1) ){
+            case 0:
+                mensaje += "alert('Usuario modificado exitosamente');";
+                break;
+            case 1:
+                mensaje += "alert('El id del usuario ya existe, verificar');";
+                break;
+            case 2:
+                mensaje += "alert('El nombre, apellido paterno y apellido materno ya existen');";
+                break;
+            case 3:
+                mensaje += "alert('El nombre de usuario capturado ya existe');";
+                break;
+            case 4:
+                mensaje += "alert('El tipo de usuario no es valido, verificar');";
+                break;
+            default:
+                break;
+        }
+        mensaje += "document.location.href = 'jvAdminUsuario.jsp'";
+        mensaje += "</script>";
+        
+        // Inicialización del atributo en la sesión
+        request.getSession().setAttribute("rsUpdUsuario", null);
+        request.getSession().invalidate();
+        
+        request.getSession().setAttribute("errorCode", null);
+        request.getSession().invalidate();
+    }
+    
     // Validación de rsInsUsuario
     if(request.getSession().getAttribute("rsInsUsuario") != null){
         ResultSet vistaUsuario = (ResultSet)request.getSession().getAttribute("rsInsUsuario");
@@ -40,6 +76,9 @@
         
         // Inicialización del atributo en la sesión
         request.getSession().setAttribute("rsInsUsuario", null);
+        request.getSession().invalidate();
+        
+        request.getSession().setAttribute("errorCode", null);
         request.getSession().invalidate();
     }
     
@@ -118,12 +157,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>JSP Page</title>
        	<link href="./src/css/principal.css" rel="stylesheet">        
     </head>
 <body style="background:#DAF6FE">
     
-<form id="frmPrincipal" method="POST" action="srvInsUsuario">  
+<form id="frmPrincipal" method="POST">  
 <%=mensaje%>
 <center>	
 	<table border="0" width="80%" cellspacing="0" cellpadding="5" class="sombreado">
@@ -170,7 +212,7 @@
                             </font>
 
                             <table width="80%" border="0">
-                                <tr class="userIdContent">
+                                <tr class="userIdContent no-display">
                                     <td>
                                         <font class="fontTrabajoEtiquetas">
                                         ID:
