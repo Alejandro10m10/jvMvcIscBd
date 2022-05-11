@@ -5,9 +5,11 @@
         <group>
             <file>file:/D:/Archivos/Documentos/NetBeansProjects/jvMvcIscBd/src/java/controlador/srvAcceso.java</file>
             <file>file:/D:/Archivos/Documentos/NetBeansProjects/jvMvcIscBd/src/java/controlador/srvUpdUsuario.java</file>
+            <file>file:/D:/Archivos/Documentos/NetBeansProjects/jvMvcIscBd/web/src/css/reporte.css</file>
+            <file>file:/D:/Archivos/Documentos/NetBeansProjects/jvMvcIscBd/src/java/controlador/srvInsUsuario.java</file>
             <file>file:/D:/Archivos/Documentos/NetBeansProjects/jvMvcIscBd/web/jvAdminUsuario.jsp</file>
             <file>file:/D:/Archivos/Documentos/NetBeansProjects/jvMvcIscBd/src/java/modelo/clsUsuario.java</file>
-            <file>file:/D:/Archivos/Documentos/NetBeansProjects/jvMvcIscBd/web/src/css/principal.css</file>
+            <file>file:/D:/Archivos/Documentos/NetBeansProjects/jvMvcIscBd/src/java/controlador/srvDelUsuario.java</file>
         </group>
     </open-files>
 </project-private>
