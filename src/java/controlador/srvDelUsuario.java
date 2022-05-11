@@ -7,10 +7,15 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.clsUsuario;
 
 /**
  *
@@ -29,17 +34,48 @@ public class srvDelUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet srvDelUsuario</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet srvDelUsuario at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        request.setCharacterEncoding("utf-8"); // Obtener los valores sin importar que tengan acentos
+        try {
+            // Recepcion de los datos (cajas de texto)
+            String idString = request.getParameter("txtID");
+            String nombre = request.getParameter("txtNombre");
+            String paterno = request.getParameter("txtPaterno");
+            String materno = request.getParameter("txtMaterno");
+            String usuario = request.getParameter("txtUsuario");
+            String pwd = request.getParameter("txtPwd");
+            String ruta = request.getParameter("txtRuta");
+            String tipo = request.getParameter("txtTipo");  
+            
+            
+            // Validacion de variables
+            if( idString == null  || idString.equals(""))  { sendErrorCode(request, response, 1); return; } // errorCode 1 = ID vacio
+           
+            int id;
+            try {
+                id = Integer.parseInt(idString);
+            } catch (NumberFormatException e) {
+                sendErrorCode(request, response, 9); return; // errorCode 9 = ID no es un numero
+            }
+            // Aplicación de los atributos recibidos para ejecutar el método de inserción
+            
+            clsUsuario obj = new clsUsuario(); // Creación del objeto clsUsuario
+            
+            obj.connectDatabase(); //Ejecución del método de conexión
+            
+            ResultSet rs;
+            rs = obj.spUpdUsuario(id, nombre, paterno, materno, usuario, pwd, ruta, tipo);
+            
+            // Lectura del registro recibido
+            if(rs.next()){
+                //Enviar el atributo rs a la página JSP
+                sendCorrectData(request, response, rs);
+            } else{
+                sendErrorCode(request, response, 8); return;
+            }
+            
+        } catch (SQLException e) {
+            Logger.getLogger(srvDelUsuario.class.getName() ).log(Level.SEVERE, null, e);
+            sendErrorCode(request, response, 9); // errorCode 8 = Error de conectividad externo al usuario
         }
     }
 
@@ -82,4 +118,13 @@ public class srvDelUsuario extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private void sendErrorCode(HttpServletRequest request, HttpServletResponse response, int errorKeyCode) throws ServletException, IOException{
+        request.getSession().setAttribute("errorCode", String.valueOf(errorKeyCode));
+        request.getRequestDispatcher("jvAdminUsuario.jsp").forward(request, response);
+    }
+    
+    private void sendCorrectData(HttpServletRequest request, HttpServletResponse response, ResultSet rs) throws ServletException, IOException{
+        request.getSession().setAttribute("rsDelUsuario", rs);
+        request.getRequestDispatcher("jvAdminUsuario.jsp").forward(request, response);
+    }
 }

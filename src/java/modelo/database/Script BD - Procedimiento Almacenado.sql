@@ -126,4 +126,21 @@ END $$
 delimiter $$
 
 
-
+-- ----------------------------------------------------------------------------------
+-- (3) PROCEDIMIENTO PARA ELIMINAR UN USUARIO
+-- ----------------------------------------------------------------------------------
+delimiter $$
+CREATE PROCEDURE spDelUsuario(
+clave	INT
+)
+BEGIN
+       IF EXISTS (SELECT USU_CVE_USUARIO FROM USUARIO WHERE USU_CVE_USUARIO = clave) THEN 
+		-- SE PROCEDE A BORRAR
+			DELETE FROM USUARIO WHERE USUARIO.USU_CVE_USUARIO = clave;
+            -- El usuario se logro eliminar correctamente
+			SELECT '0';
+		ELSE
+			-- No existe ningun usuario con ese ID
+			SELECT '1'; 
+       END IF;
+END $$

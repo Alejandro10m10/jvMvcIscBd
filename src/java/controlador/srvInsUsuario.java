@@ -33,7 +33,7 @@ public class srvInsUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        request.setCharacterEncoding("utf-8"); // Obtener los valores sin importar que tengan acentos
         try {
             // Recepcion de los datos (cajas de texto)
             String nombre = request.getParameter("txtNombre");

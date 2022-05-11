@@ -45,8 +45,6 @@ public class srvUpdUsuario extends HttpServlet {
             String ruta = request.getParameter("txtRuta");
             String tipo = request.getParameter("txtTipo");  
             
-            System.out.println(idString + " " + nombre + " " + paterno + " " + materno + " " + usuario + " " + pwd + " " + ruta + " " + tipo + " ");
-            
             // Validacion de variables
             if( idString == null  || idString.equals(""))  { sendErrorCode(request, response, 1); return; } // errorCode 1 = ID vacio
             if( nombre == null  || nombre.equals(""))  { sendErrorCode(request, response, 2); return; } // errorCode 2 = Nombre vacio
