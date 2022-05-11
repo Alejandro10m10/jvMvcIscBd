@@ -312,7 +312,7 @@
                                         &nbsp;&nbsp;
                                         <input type="button" id="btnModificar" value="Modificar" class="botonDecoracion">
                                         &nbsp;&nbsp;
-                                        <input type="button"  value="Eliminar" class="botonDecoracion">
+                                        <input type="button" id="btnEliminar" value="Eliminar" class="botonDecoracion">
 
                                     </td>
                                 </tr>
@@ -343,6 +343,7 @@
 <script language="javascript">
     const btnRegistrar = document.querySelector('#btnRegistrar'),
           btnModificar = document.querySelector('#btnModificar'),
+          btnEliminar = document.querySelector('#btnEliminar'),
           selectUsuarioContent = document.querySelector('#selectUsuarioContent');
           selectUsuarioTag = document.querySelector('#selectUsuario');
           
@@ -357,6 +358,7 @@
     
     let enabledUpdateButton = true,
         enabledInsertButton = true,
+        enabledDeleteButton = true,
         usersOBJ =  JSON.parse(`<%=selectElement%>`);
     
     document.addEventListener('DOMContentLoaded', init);
@@ -379,6 +381,7 @@
     function eventListeners(){
         btnRegistrar.addEventListener('click', insUsuario);
         btnModificar.addEventListener('click', updUsuario);
+        btnEliminar.addEventListener('click', delUsuario);
         selectUsuario.addEventListener('change', getUserSelected);
     }
     
@@ -389,7 +392,9 @@
             enableFields(false);
             clearInputs();
         } else{
-            enableFields(true);
+            (enabledUpdateButton)
+                ? enableFields(false)
+                :  enableFields(true); 
             getData(idUsuario);
         }
     }
@@ -450,11 +455,12 @@
     
     // Ejecucion de validacion y submit al controlador
     function insUsuario(){
-        
         if(!enabledInsertButton){
             showListaUsuarios(false);
+            selectUsuarioContent.classList.add('no-display');
             enabledInsertButton = !enabledInsertButton;
             enabledUpdateButton = true;
+            enabledDeleteButton = true;
             clearInputs()
             enableFields(true);
             return;
@@ -467,24 +473,52 @@
     }
    
     function updUsuario(){
-        
         if(enabledUpdateButton){
             showListaUsuarios(true);
+            selectUsuario.options[0].textContent = 'Seleccione un usuario a editar';
             enabledUpdateButton = !enabledUpdateButton;
             enabledInsertButton = false;
+            enabledDeleteButton = true;
             clearInputs()
-            enableFields(false);
+            enableFields(false, 'delete');
             return;
         }
         
         if(!validarCampos('update')) return;
         
         if(confirm("¿Estas seguro que deseas modificar al usuario con el id: " + idInput.value + " ?")) sendControlador('srvUpdUsuario');
-
+    }
+    
+    function delUsuario(){
+        if(enabledDeleteButton){
+            showListaUsuarios(true);
+            selectUsuario.options[0].textContent = 'Seleccione un usuario a eliminar';
+            enabledDeleteButton = !enabledDeleteButton;
+            enabledInsertButton = false;
+            enabledUpdateButton = true;
+            clearInputs()
+            enableFields(false);
+            return;
+        }
+        
+        if(!validarCampos('delete')) return;
+        
+        if(confirm("¿Estas seguro que deseas eliminar al usuario con el id: " + idInput.value + " ?")) console.log('delete user');
     }
     
     // Proceso de validacion de lado del cliente
     function validarCampos(validation){
+        
+        if(validation === 'delete'){
+            let idUsuario = parseInt(selectUsuarioTag.value);
+            if(idUsuario === 0){ 
+                alert('No has seleccionado ningun usuario para eliminarlo.'); 
+                return false; 
+            } else{
+                return true;
+            }
+        }
+        
         if(validation === 'update'){
             let idUsuario = parseInt(selectUsuarioTag.value);
             if(idUsuario === 0){ alert('No has seleccionado ningun usuario para modificarlo.'); return false; }
@@ -525,11 +559,9 @@
     }
     
     function showListaUsuarios(value){
-        if(value && selectUsuarioContent.classList.contains('no-display')){
-            selectUsuarioContent.classList.remove('no-display');
-        } else {
-            selectUsuarioContent.classList.add('no-display');
-        }
+        (value)
+            ? selectUsuarioContent.classList.remove('no-display')
+            : selectUsuarioContent.classList.add('no-display');
     }
     
 </script>
